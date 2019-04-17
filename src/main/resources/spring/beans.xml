@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans.xsd
+                    http://www.springframework.org/schema/util
+                    http://www.springframework.org/schema/util/spring-util.xsd">
+                    
+<!-- 	<util:list id="AddressesList" list-class="java.util.ArrayList"> -->
+<!-- 		<ref bean="Address" /> -->
+<!-- 	</util:list> -->
+
+<!-- 	<util:map id="Address" map-class="java.util.HashMap"> -->
+<!-- 		<entry key="id" value="1234" /> -->
+<!-- 		<entry key="city" value="taipei" /> -->
+<!-- 		<entry key="stat" value="zensen" /> -->
+<!-- 		<entry key="address" value="765483921" /> -->
+<!-- 		<entry key="zip" value="123456" /> -->
+<!-- 	</util:map> -->
+	
+	<util:list id="ItemList" list-class="java.util.ArrayList">
+		<ref bean="Item1" />
+		<ref bean="Item2" />
+		<ref bean="Item3" />
+	</util:list>
+
+	<util:map id="Item1" map-class="java.util.HashMap">
+		<entry key="itemNo" value="123" />
+		<entry key="name" value="Honda Brakepad" />
+		<entry key="description" value="Basic brakepad for Honda" />
+		<entry key="number" value="28" />
+		<entry key="made" value="" />
+	</util:map>
+	<util:map id="Item2" map-class="java.util.HashMap">
+		<entry key="itemNo" value="456" />
+		<entry key="name" value="Suzuki Brakepad" />
+		<entry key="description" value="Basic brakepad for Suzuki" />
+		<entry key="number" value="149" />
+		<entry key="made" value="" />
+	</util:map>
+	<util:map id="Item3" map-class="java.util.HashMap">
+		<entry key="itemNo" value="789" />
+		<entry key="name" value="Suzuki Engine 500" />
+		<entry key="description" value="Suzuki 500cc engine" />
+		<entry key="number" value="4" />
+		<entry key="made" value="" />
+	</util:map>
+</beans>

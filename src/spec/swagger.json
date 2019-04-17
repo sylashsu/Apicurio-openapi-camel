@@ -1,0 +1,124 @@
+{
+  "swagger" : "2.0",
+  "info": {
+    "title": "AddressBookAPI",
+    "description": "an address booking",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/addresses": {
+      "get": {
+        "summary": "List Addresses",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Address"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Addreess",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {}
+        }
+      }
+    },
+    "/addresses/{addressId}": {
+      "get": {
+        "summary": "Get an Address",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Address"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an Address",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {}
+        }
+      },
+      "delete": {
+        "summary": "Delete an address",
+        "responses": {
+          "204": {}
+        }
+      },
+      "parameters": [
+        {
+          "name": "addressId",
+          "in": "path",
+          "description": "The Address Id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "Address": {
+        "title": "Root Type for Address",
+        "description": "The root of the Address type's schema.",
+        "type": "object",
+        "properties": {
+          "addressId": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "stat": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

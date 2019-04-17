@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rests xmlns="http://camel.apache.org/schema/spring">
+    <rest id="rest-3689f80a-672c-45a6-ade6-416b7fe416b2">
+        <get uri="/itemQuery">
+            <to uri="direct:rest1"/>
+        </get>
+        <post uri="/itemQuery">
+            <param name="body" required="false" type="body"/>
+            <to uri="direct:rest2"/>
+        </post>
+        <get uri="/itemQuery/{itemId}">
+            <param dataType="string" description="The Item Id"
+                name="itemId" required="true" type="path"/>
+            <to uri="direct:rest3"/>
+        </get>
+        <put uri="/itemQuery/{itemId}">
+            <param dataType="string" description="The Item Id"
+                name="itemId" required="true" type="path"/>
+            <param name="body" required="false" type="body"/>
+            <to uri="direct:rest4"/>
+        </put>
+        <delete uri="/itemQuery/{itemId}">
+            <param dataType="string" description="The Item Id"
+                name="itemId" required="true" type="path"/>
+            <to uri="direct:rest5"/>
+        </delete>
+    </rest>
+</rests>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rests xmlns="http://camel.apache.org/schema/spring">
+    <rest id="rest-a8a6484c-cdad-486d-a95f-a02f0900c3df">
+        <get uri="/addresses">
+            <to uri="direct:rest1"/>
+        </get>
+        <post uri="/addresses">
+            <to uri="direct:rest2"/>
+        </post>
+        <get uri="/addresses/{addressId}">
+            <param description="The Address Id" name="addressId"
+                required="true" type="path"/>
+            <to uri="direct:rest3"/>
+        </get>
+        <put uri="/addresses/{addressId}">
+            <param description="The Address Id" name="addressId"
+                required="true" type="path"/>
+            <to uri="direct:rest4"/>
+        </put>
+        <delete uri="/addresses/{addressId}">
+            <param description="The Address Id" name="addressId"
+                required="true" type="path"/>
+            <to uri="direct:rest5"/>
+        </delete>
+    </rest>
+</rests>

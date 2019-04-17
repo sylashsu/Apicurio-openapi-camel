@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans                                    http://www.springframework.org/schema/beans/spring-beans.xsd                                           http://camel.apache.org/schema/spring                                          http://camel.apache.org/schema/spring/camel-spring.xsd                         http://www.springframework.org/schema/util               http://www.springframework.org/schema/util/spring-util.xsd">
+    <!-- Mock Data -->
+    <import resource="beans.xml"/>
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <!-- REST Setting -->
+        <restConfiguration apiContextPath="api-docs" bindingMode="auto"
+            component="undertow" contextPath="/api" enableCORS="true" port="8082">
+            <apiProperty key="cors" value="true"/>
+            <apiProperty key="api.title" value="Item Query Service"/>
+            <apiProperty key="api.version" value="1.0.0"/>
+        </restConfiguration>
+        <!-- REST Service path -->
+        <rest id="rest-3689f80a-672c-45a6-ade6-416b7fe416b2">
+            <get uri="/itemQuery">
+                <to uri="direct:rest1"/>
+            </get>
+            <post uri="/itemQuery">
+                <param name="body" required="false" type="body"/>
+                <to uri="direct:rest2"/>
+            </post>
+            <get uri="/itemQuery/{itemId}">
+                <param dataType="string" description="The Item Id"
+                    name="itemId" required="true" type="path"/>
+                <to uri="direct:rest3"/>
+            </get>
+            <!--             <put uri="/itemQuery/{itemId}"> -->
+            <!--                 <param dataType="string" description="The Item Id" -->
+            <!--                     name="itemId" required="true" type="path"/> -->
+            <!--                 <param name="body" required="false" type="body"/> -->
+            <!--                 <to uri="direct:rest4"/> -->
+            <!--             </put> -->
+            <!--             <delete uri="/itemQuery/{itemId}"> -->
+            <!--                 <param dataType="string" description="The Item Id" -->
+            <!--                     name="itemId" required="true" type="path"/> -->
+            <!--                 <to uri="direct:rest5"/> -->
+            <!--             </delete> -->
+        </rest>
+        <!-- Camel Route -->
+        <route id="rest1-route">
+            <from id="restone" uri="direct:rest1"/>
+            <log id="input-log1-2" message=">>> ${body}"/>
+            <log id="input-log1-3" message=">>> ${in.header.itemId}"/>
+            <setBody id="route-setBody1">
+                <simple>bean:ItemList?method=iterator()</simple>
+            </setBody>
+        </route>
+        <route id="rest2-route">
+            <from id="resttwo" uri="direct:rest2"/>
+            <log id="input-log2-1" message=">>> ${body}"/>
+            <setBody id="route-setBody2">
+                <simple>Item created</simple>
+            </setBody>
+        </route>
+        <route id="rest3-route">
+            <from id="restthree" uri="direct:rest3"/>
+            <log id="input-log3-2" message=">>> ${body}"/>
+            <log id="input-log3-3" message=">>> ${in.header.itemId}"/>
+            <choice id="_choice1">
+                <when id="_when1">
+                    <simple>${in.header.itemId} == 123</simple>
+                    <setBody id="route-setBody3">
+                        <simple>bean:ItemList?method=get(0)</simple>
+                    </setBody>
+                </when>
+                <when id="_when2">
+                    <simple>${in.header.itemId} == 456</simple>
+                    <setBody id="route-setBody4">
+                        <simple>bean:ItemList?method=get(1)</simple>
+                    </setBody>
+                </when>
+                <when id="_when3">
+                    <simple>${in.header.itemId} == 789</simple>
+                    <setBody id="route-setBody5">
+                        <simple>bean:ItemList?method=get(2)</simple>
+                    </setBody>
+                </when>
+            </choice>
+        </route>
+    </camelContext>
+</beans>
